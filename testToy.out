@@ -2,9 +2,9 @@ NOT Found 'cute'
 Delete 'cute' failed
 NOT Found 'cute'
 Found 'book' with frequency 8
-Add 'book' succeeded
-Found 'book' with frequency 9
-Found 'apple' with frequency 3
+Add 'apple' succeeded
+Found 'book' with frequency 8
+Found 'apple' with frequency 4
 Delete 'apple' failed
 Found 'apple' with frequency 3
 Delete 'apple' failed
