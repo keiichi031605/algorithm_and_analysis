@@ -1,12 +1,12 @@
 NOT Found 'cute'
 Delete 'cute' failed
 NOT Found 'cute'
-NOT Found 'book'
-Add 'book' failed
-NOT Found 'book'
-NOT Found 'apple'
+Found 'book' with frequency 8
+Add 'book' succeeded
+Found 'book' with frequency 9
+Found 'apple' with frequency 3
 Delete 'apple' failed
-NOT Found 'apple'
+Found 'apple' with frequency 3
 Delete 'apple' failed
 Autocomplete for 'c': [ ]
 Autocomplete for 'cut': [ ]
