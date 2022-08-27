@@ -5,11 +5,10 @@ Found 'book' with frequency 8
 Add 'apple' succeeded
 Found 'book' with frequency 8
 Found 'apple' with frequency 4
-Delete 'apple' failed
+Delete 'apple' succeeded
 Found 'apple' with frequency 3
 Delete 'apple' failed
-Autocomplete for 'c': [ ]
-Autocomplete for 'cut': [ ]
+Autocomplete for 'cut': [ cutaway: 9648  uppercut: 4873  cuttlefish: 3379  ]
 Autocomplete for 'farms': [ ]
 Delete 'cut' failed
-Autocomplete for 'cut': [ ]
+Autocomplete for 'cut': [ cutaway: 9648  uppercut: 4873  cuttlefish: 3379  ]

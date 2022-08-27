@@ -130,4 +130,23 @@ class ArrayDictionary(BaseDictionary):
         @param prefix_word: word to be autocompleted
         @return: a list (could be empty) of (at most) 3 most-frequent words with prefix 'prefix_word'
         """
-        return []
+        most_frequent_words = []
+        for wf in self.array_dictionary:
+            if prefix_word in wf[0]:
+                most_frequent_words.append(wf)
+        most_frequent_words = sorted(most_frequent_words, key=lambda x: x[1], reverse=True)
+
+        # REFACTORING: there should be more better way!!
+        three_most_frequent_words = []
+        if len(most_frequent_words) > 0:
+            three_most_frequent_words.append(most_frequent_words[0])
+            if len(most_frequent_words) > 1:
+                three_most_frequent_words.append(most_frequent_words[1])
+                if len(most_frequent_words) > 1:
+                    three_most_frequent_words.append(most_frequent_words[2])
+
+        three_most_frequent_words_objects = []
+        for most_frequent_word in three_most_frequent_words:
+            three_most_frequent_words_objects.append(WordFrequency(most_frequent_word[0], most_frequent_word[1]))
+
+        return three_most_frequent_words_objects
