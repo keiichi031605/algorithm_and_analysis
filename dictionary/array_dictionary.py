@@ -14,17 +14,18 @@ import bisect
 class ArrayDictionary(BaseDictionary):
 
     def __init__(self):
-        # TO BE IMPLEMENTED
-        pass
-
+        # pass
+        self.array_dictionary = None
 
     def build_dictionary(self, words_frequencies: [WordFrequency]):
         """
         construct the data structure to store nodes
         @param words_frequencies: list of (word, frequency) to be stored
         """
-        # TO BE IMPLEMENTED
-
+        wf_dictionary= {}
+        for wf in words_frequencies:
+            wf_dictionary[wf.word] = wf.frequency
+        self.array_dictionary = wf_dictionary
 
     def search(self, word: str) -> int:
         """
@@ -32,9 +33,11 @@ class ArrayDictionary(BaseDictionary):
         @param word: the word to be searched
         @return: frequency > 0 if found and 0 if NOT found
         """
-        # TO BE IMPLEMENTED
-
-        return 0
+        count = 0
+        for key, value in self.array_dictionary.items():
+            if word in key:
+                count += 1
+        return count    
 
     def add_word_frequency(self, word_frequency: WordFrequency) -> bool:
         """
@@ -42,8 +45,8 @@ class ArrayDictionary(BaseDictionary):
         @param word_frequency: (word, frequency) to be added
         :return: True whether succeeded, False when word is already in the dictionary
         """
-        # TO BE IMPLEMENTED
-
+        
+        
         return False
 
     def delete_word(self, word: str) -> bool:
