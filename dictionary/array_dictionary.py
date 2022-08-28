@@ -14,7 +14,6 @@ import bisect
 class ArrayDictionary(BaseDictionary):
 
     def __init__(self):
-        # pass
         self.array_dictionary = []
 
     def build_dictionary(self, words_frequencies: [WordFrequency]):
@@ -74,12 +73,11 @@ class ArrayDictionary(BaseDictionary):
             if word == wf_object.word:
                 word_validation = True
                 idx = count
-        # if 'word' doesn't exist, remove it from the array_dictionary by pop() with index
+        # 2. if 'word' doesn't exist, remove it from the array_dictionary by pop() with index
         if idx:
             self.array_dictionary.pop(idx)
-        
+
         return word_validation
-        
 
     def autocomplete(self, prefix_word: str) -> [WordFrequency]:
         """
