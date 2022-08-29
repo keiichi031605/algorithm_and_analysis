@@ -63,9 +63,24 @@ class LinkedListDictionary(BaseDictionary):
         @param word_frequency: (word, frequency) to be added
         :return: True whether succeeded, False when word is already in the dictionary
         """
+        word_validation = True
+        # 1. initialize current to head
+        current = self.head
 
-        # TO BE IMPLEMENTED
-        return False
+        while current != None:
+            if current.word_frequency and current.word_frequency.word == word_frequency.word:
+                word_validation = False
+            current = current.next
+        # add it here
+        if word_validation:
+            # 1. create a new Node
+            new_node = ListNode(word_frequency)
+            # 2. make next of new ListNode as head
+            new_node.next = self.head
+            # 3. move the head to point to new ListNode
+            self.head = new_node
+
+        return word_validation
 
     def delete_word(self, word: str) -> bool:
         """
