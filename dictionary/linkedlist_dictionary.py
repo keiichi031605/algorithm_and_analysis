@@ -88,9 +88,33 @@ class LinkedListDictionary(BaseDictionary):
         @param word: word to be deleted
         @return: whether succeeded, e.g. return False when point not found
         """
+        word_validation = False
 
+        current = self.head
+        while current != None:
+            print(current.word_frequency.word)
+            if current.word_frequency and current.word_frequency.word == word:
+                word_validation = True
+            current = current.next
+
+            prev = current
+            current = current.next
+        # current = self.head
+        # rear = current.next
+        # while rear:
+        #     if rear.value == value:
+        #         break
+        #     current = rear
+        #     rear = rear.next
+        # if not rear:
+        #     print("[*] Data not found")
+        #     return
+        # current.next = rear.next
+        # rear = None
+
+        return word_validation
         # TO BE IMPLEMENTED
-        return False
+        # return False
 
 
     def autocomplete(self, word: str) -> [WordFrequency]:
