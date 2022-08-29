@@ -30,55 +30,32 @@ class LinkedListDictionary(BaseDictionary):
         @param words_frequencies: list of (word, frequency) to be stored
         """
         for wf_object in words_frequencies:
-            front = self.head
-            rear = front.next
-            while rear:
-                front = rear
-                rear = rear.next
-            list_node = ListNode(wf_object)
-            list_node.next = rear
-            front.next = list_node
+            # 1. create a new Node
+            new_node = ListNode(wf_object)
+            # 2. make next of new ListNode as head
+            new_node.next = self.head
+            # 3. move the head to point to new ListNode
+            self.head = new_node
         
-        # print(self.head.word_frequency)
+        # print(self.head.word_frequency.word)
         # print(self.head.next.word_frequency.word)
         # print(self.head.next.next.word_frequency.word)
-
     def search(self, word: str) -> int:
         """
         search for a word
         @param word: the word to be searched
         @return: frequency > 0 if found and 0 if NOT found
         """
-        # # Initialize current to head
-        # current = self.head
- 
-        # # Loop till current not equal to None
-        # while current != None:
-        #     if current.data == x:
- 
-        #         # Data found
-        #         return True
-        
-        #     current = current.next
-         
-        # # Data Not found
-        # return False
-
-        # front = self.head
-        # rear = front.next
-        # while rear:
-        #     print(rear.word_frequency)
-        #     if rear.word_frequency == word:
-        #         break
-        #     front = rear
-        #     rear = rear.next
-        # if not rear:
-        #     print("[*] Data not found")
-        #     return
-        # front.next = rear.next
-        # rear = None
-        # TO BE IMPLEMENTED
-        return 0
+        # 1. initialize current to head
+        current = self.head
+        # 2. define return value
+        frequency = 0
+        # 3. loop till current not equal to None
+        while current != None:
+            if current.word_frequency and current.word_frequency.word == word:
+                frequency = current.word_frequency.frequency
+            current = current.next
+        return frequency
 
     def add_word_frequency(self, word_frequency: WordFrequency) -> bool:
         """
