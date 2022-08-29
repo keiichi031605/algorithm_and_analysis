@@ -31,12 +31,12 @@ class ArrayDictionary(BaseDictionary):
         @return: frequency > 0 if found and 0 if NOT found
         """
         # 1. loop through array_dictionary to search
-        count = 0
+        frequency = 0
         for wf_object in self.array_dictionary:
-            if word in wf_object.word:
-                count += 1
+            if word == wf_object.word:
+                frequency = wf_object.frequency
 
-        return count
+        return frequency
 
     def add_word_frequency(self, word_frequency: WordFrequency) -> bool:
         """
