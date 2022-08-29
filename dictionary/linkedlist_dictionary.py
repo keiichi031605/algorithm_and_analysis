@@ -22,17 +22,26 @@ class ListNode:
 class LinkedListDictionary(BaseDictionary):
 
     def __init__(self):
-        # TO BE IMPLEMENTED
-        pass
-
+        self.head = ListNode(None)
 
     def build_dictionary(self, words_frequencies: [WordFrequency]):
         """
         construct the data structure to store nodes
         @param words_frequencies: list of (word, frequency) to be stored
         """
-        # TO BE IMPLEMENTED
-
+        for wf_object in words_frequencies:
+            front = self.head
+            rear = front.next
+            while rear:
+                front = rear
+                rear = rear.next
+            list_node = ListNode(wf_object)
+            list_node.next = rear
+            front.next = list_node
+        
+        # print(self.head.word_frequency)
+        # print(self.head.next.word_frequency.word)
+        # print(self.head.next.next.word_frequency.word)
 
     def search(self, word: str) -> int:
         """
@@ -40,7 +49,34 @@ class LinkedListDictionary(BaseDictionary):
         @param word: the word to be searched
         @return: frequency > 0 if found and 0 if NOT found
         """
+        # # Initialize current to head
+        # current = self.head
+ 
+        # # Loop till current not equal to None
+        # while current != None:
+        #     if current.data == x:
+ 
+        #         # Data found
+        #         return True
+        
+        #     current = current.next
+         
+        # # Data Not found
+        # return False
 
+        # front = self.head
+        # rear = front.next
+        # while rear:
+        #     print(rear.word_frequency)
+        #     if rear.word_frequency == word:
+        #         break
+        #     front = rear
+        #     rear = rear.next
+        # if not rear:
+        #     print("[*] Data not found")
+        #     return
+        # front.next = rear.next
+        # rear = None
         # TO BE IMPLEMENTED
         return 0
 

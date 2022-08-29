@@ -1,14 +1,14 @@
 NOT Found 'cute'
 Delete 'cute' failed
 NOT Found 'cute'
-Found 'book' with frequency 8
-Add 'apple' succeeded
-Found 'book' with frequency 8
-Found 'apple' with frequency 4
-Delete 'apple' succeeded
-Found 'apple' with frequency 3
+NOT Found 'book'
+Add 'apple' failed
+NOT Found 'book'
+NOT Found 'apple'
 Delete 'apple' failed
-Autocomplete for 'cut': [ cutaway: 9648  uppercut: 4873  cuttlefish: 3379  ]
+NOT Found 'apple'
+Delete 'apple' failed
+Autocomplete for 'cut': [ ]
 Autocomplete for 'farms': [ ]
 Delete 'cut' failed
-Autocomplete for 'cut': [ cutaway: 9648  uppercut: 4873  cuttlefish: 3379  ]
+Autocomplete for 'cut': [ ]
