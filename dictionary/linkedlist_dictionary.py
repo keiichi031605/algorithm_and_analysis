@@ -23,6 +23,7 @@ class LinkedListDictionary(BaseDictionary):
 
     def __init__(self):
         self.head = ListNode(None)
+        self.length = 0
 
     def build_dictionary(self, words_frequencies: [WordFrequency]):
         """
@@ -30,32 +31,34 @@ class LinkedListDictionary(BaseDictionary):
         @param words_frequencies: list of (word, frequency) to be stored
         """
         for wf_object in words_frequencies:
-            # 1. create a new Node
+            # 1. create a new ListNode
             new_node = ListNode(wf_object)
-            # 2. make next of new ListNode as head
-            new_node.next = self.head
-            # 3. move the head to point to new ListNode
-            self.head = new_node
-        
+            if not self.head:
+                self.head = new_node
+            else:
+                # 2. make next of new ListNode as head
+                new_node.next = self.head
+                # 3. move the head to point to new ListNode
+                self.head = new_node
+            self.length += 1
         # print(self.head.word_frequency.word)
         # print(self.head.next.word_frequency.word)
         # print(self.head.next.next.word_frequency.word)
+
     def search(self, word: str) -> int:
         """
         search for a word
         @param word: the word to be searched
         @return: frequency > 0 if found and 0 if NOT found
         """
-        # 1. initialize current to head
         current = self.head
-        # 2. define return value
-        frequency = 0
-        # 3. loop till current not equal to None
-        while current != None:
-            if current.word_frequency and current.word_frequency.word == word:
-                frequency = current.word_frequency.frequency
+        for i in range(self.length):
+            # print(current)
+            if current.word_frequency.word == word:
+                return current.word_frequency.frequency
+
             current = current.next
-        return frequency
+        return 0
 
     def add_word_frequency(self, word_frequency: WordFrequency) -> bool:
         """
@@ -64,58 +67,55 @@ class LinkedListDictionary(BaseDictionary):
         :return: True whether succeeded, False when word is already in the dictionary
         """
         word_validation = True
-        # 1. initialize current to head
         current = self.head
-
-        while current != None:
-            if current.word_frequency and current.word_frequency.word == word_frequency.word:
+        # 1. loop through and check if the word already exists or not
+        for i in range(self.length):
+            if current.word_frequency.word == word_frequency.word:
                 word_validation = False
             current = current.next
-        # add it here
+        # 2. if the word does not exist, create a new node
         if word_validation:
-            # 1. create a new Node
             new_node = ListNode(word_frequency)
-            # 2. make next of new ListNode as head
-            new_node.next = self.head
-            # 3. move the head to point to new ListNode
-            self.head = new_node
+            if not self.head:
+                self.head = new_node
+            else:
+                new_node.next = self.head
+                self.head = new_node
+            self.length += 1
 
         return word_validation
 
     def delete_word(self, word: str) -> bool:
-        """
+        """ 
         delete a word from the dictionary
         @param word: word to be deleted
         @return: whether succeeded, e.g. return False when point not found
         """
-        word_validation = False
+        # check if linked list has value in case
+        if self.length  == 0:
+            return False
 
         current = self.head
-        while current != None:
-            print(current.word_frequency.word)
-            if current.word_frequency and current.word_frequency.word == word:
-                word_validation = True
+        previous = None
+        # delete the node if the word is the head node
+        if current.word_frequency.word == word:
+            self.head = current.next
+            self.length -= 1
+            return True
+
+        previous = current
+        current = current.next
+        # delete the node by scanning through list
+        while current.word_frequency:
+            if current.word_frequency.word == word:
+                previous.next = current.next
+                current = None
+                self.length -= 1
+                return True
+            previous = current
             current = current.next
 
-            prev = current
-            current = current.next
-        # current = self.head
-        # rear = current.next
-        # while rear:
-        #     if rear.value == value:
-        #         break
-        #     current = rear
-        #     rear = rear.next
-        # if not rear:
-        #     print("[*] Data not found")
-        #     return
-        # current.next = rear.next
-        # rear = None
-
-        return word_validation
-        # TO BE IMPLEMENTED
-        # return False
-
+        return False
 
     def autocomplete(self, word: str) -> [WordFrequency]:
         """
