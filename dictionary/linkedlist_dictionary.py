@@ -123,9 +123,28 @@ class LinkedListDictionary(BaseDictionary):
         @param word: word to be autocompleted
         @return: a list (could be empty) of (at most) 3 most-frequent words with prefix 'word'
         """
+        # check if linked list has value in case
+        if self.length  == 0:
+            return []
 
-        # TO BE IMPLEMENTED
-        return []
+        frequent_words = []
+        current = self.head
+        # 1. loop through and check if the word already exists or not
+        for i in range(self.length):
+            if word in current.word_frequency.word:
+                frequent_words.append(current.word_frequency)
+                # print(current.word_frequency.word, current.word_frequency.frequency)
+            current = current.next
+        frequent_words.sort(key=lambda x: x.frequency, reverse=True)
+
+        three_most_frequent_words = []
+        if len(frequent_words) > 0:
+            three_most_frequent_words.append(frequent_words[0])
+            if len(frequent_words) > 1:
+                three_most_frequent_words.append(frequent_words[1])
+                if len(frequent_words) > 1:
+                    three_most_frequent_words.append(frequent_words[2])
+        return three_most_frequent_words
 
 
 
