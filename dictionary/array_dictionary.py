@@ -97,7 +97,7 @@ class ArrayDictionary(BaseDictionary):
             three_most_frequent_words.append(frequent_words[0])
             if len(frequent_words) > 1:
                 three_most_frequent_words.append(frequent_words[1])
-                if len(frequent_words) > 1:
+                if len(frequent_words) > 2:
                     three_most_frequent_words.append(frequent_words[2])
         # for x in three_most_frequent_words:
         #     print(x.word, x.frequency)

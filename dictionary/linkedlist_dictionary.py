@@ -142,7 +142,7 @@ class LinkedListDictionary(BaseDictionary):
             three_most_frequent_words.append(frequent_words[0])
             if len(frequent_words) > 1:
                 three_most_frequent_words.append(frequent_words[1])
-                if len(frequent_words) > 1:
+                if len(frequent_words) > 2:
                     three_most_frequent_words.append(frequent_words[2])
         return three_most_frequent_words
 
