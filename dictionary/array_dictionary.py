@@ -87,7 +87,7 @@ class ArrayDictionary(BaseDictionary):
         """
         frequent_words = []
         for wf_object in self.array_dictionary:
-            if prefix_word in wf_object.word:
+            if prefix_word[0] == wf_object.word[0] and prefix_word in wf_object.word:
                 frequent_words.append(wf_object)
         frequent_words.sort(key=lambda x: x.frequency, reverse=True)
 
@@ -99,8 +99,5 @@ class ArrayDictionary(BaseDictionary):
                 three_most_frequent_words.append(frequent_words[1])
                 if len(frequent_words) > 2:
                     three_most_frequent_words.append(frequent_words[2])
-        # for x in three_most_frequent_words:
-        #     print(x.word, x.frequency)
-        # print("###")
 
         return three_most_frequent_words

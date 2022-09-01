@@ -131,7 +131,7 @@ class LinkedListDictionary(BaseDictionary):
         current = self.head
         # 1. loop through and check if the word already exists or not
         for i in range(self.length):
-            if word in current.word_frequency.word:
+            if word[0] == current.word_frequency.word[0] and word in current.word_frequency.word:
                 frequent_words.append(current.word_frequency)
                 # print(current.word_frequency.word, current.word_frequency.frequency)
             current = current.next

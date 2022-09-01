@@ -1,6 +1,6 @@
 from dictionary.base_dictionary import BaseDictionary
 from dictionary.word_frequency import WordFrequency
-
+import string
 # ------------------------------------------------------------------------
 # This class is required TO BE IMPLEMENTED
 # Trie-based dictionary implementation
@@ -24,15 +24,30 @@ class TrieDictionary(BaseDictionary):
 
     def __init__(self):
         # TO BE IMPLEMENTED
-        pass
+        # az_lower = string.ascii_lowercase
+        # li = []
+        # for i in az_lower:
+        #     li.append(i)
+        # li.append(None)
+        # print(li)
+        self.root = TrieNode()
 
     def build_dictionary(self, words_frequencies: [WordFrequency]):
         """
         construct the data structure to store nodes
         @param words_frequencies: list of (word, frequency) to be stored
         """
-        # TO BE IMPLEMENTED
+        # print(type(self.root.children))
+        # for wf_object in words_frequencies:
+        #     for char in wf_object.word:
+        #         if char not in 
 
+        # for c in key:
+        #     if c not in node.children:
+        #         return False
+        #     node = node.children[c]
+        #     return node.value
+        # TO BE IMPLEMENTED
 
     def search(self, word: str) -> int:
         """
