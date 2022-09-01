@@ -59,18 +59,20 @@ class TrieDictionary(BaseDictionary):
         @return: frequency > 0 if found and 0 if NOT found
         """
         node = self.root
+        # return 0 if root node has no children
         if not node.children:
             return 0
 
         for char in word:
             char_not_found = True
-            # Search through all the children of the present `node`
+            # loop through node.children to search if each char exists
             for child in node.children:
                 if char == child:
                     char_not_found = False
                     node = node.children[char] #set its value TrieNode to node
                     break
-            # Return False anyway when we did not find a char.
+
+            # return 0 anyway when not found a char.
             if char_not_found:
                 return 0
 
