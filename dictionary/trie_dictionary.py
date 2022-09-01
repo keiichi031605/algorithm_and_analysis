@@ -25,7 +25,7 @@ class TrieDictionary(BaseDictionary):
     def __init__(self):
         self.root = TrieNode()
         # self.root.children["c"] = TrieNode("c", None, False)
-        # self.root.children["a"] = TrieNode("b", None, False)
+        # self.root.children["u"] = TrieNode("b", None, False)
 
     def build_dictionary(self, words_frequencies: [WordFrequency]):
         """
@@ -50,7 +50,7 @@ class TrieDictionary(BaseDictionary):
 
             node.frequency = wf_object.frequency
             node.is_last = True
-        # print(self.root.children)
+        # print(self.root.children["c"].children)
 
     def search(self, word: str) -> int:
         """
@@ -84,10 +84,28 @@ class TrieDictionary(BaseDictionary):
         @param word_frequency: (word, frequency) to be added
         :return: True whether succeeded, False when word is already in the dictionary
         """
-
-        # TO BE IMPLEMENTED
-
-        return False
+        word_validation = False
+        node = self.root
+        for char in word_frequency.word:
+            found_in_child = False
+            for child in node.children:
+                if char == child:
+                    # print(node.children[char])
+                    node = node.children[char] #set its value TrieNode
+                    found_in_child = True
+                    break
+            if not found_in_child:
+                new_node = TrieNode(char, None, False)
+                node.children[char] = new_node
+                node = new_node
+                word_validation = True
+        if word_validation:
+            node.frequency = word_frequency.frequency
+            node.is_last = True
+        
+        # print(self.root.children["b"].children["o"].children["o"].children["k"])
+        # print(word_validation)
+        return word_validation
 
     def delete_word(self, word: str) -> bool:
         """
