@@ -31,23 +31,34 @@ class TrieDictionary(BaseDictionary):
         # li.append(None)
         # print(li)
         self.root = TrieNode()
+        self.root.children["c"] = TrieNode("c", None, False)
+        # self.root.children["b"] = TrieNode("b", None, False)
 
     def build_dictionary(self, words_frequencies: [WordFrequency]):
         """
         construct the data structure to store nodes
         @param words_frequencies: list of (word, frequency) to be stored
         """
-        # print(type(self.root.children))
-        # for wf_object in words_frequencies:
-        #     for char in wf_object.word:
-        #         if char not in 
+        for wf_object in words_frequencies:
+            node = self.root
+            for char in wf_object.word:
+                found_in_child = False
+                for child in node.children:
+                    if char == child:
+                        # print(node.children[char])
+                        node = node.children[char] #set its value TrieNode
+                        found_in_child = True
+                        break
+                if not found_in_child:
+                    # print(char)
+                    new_node = TrieNode(char, None, False)
+                    node.children[char] = new_node
+                    node = new_node
 
-        # for c in key:
-        #     if c not in node.children:
-        #         return False
-        #     node = node.children[c]
-        #     return node.value
-        # TO BE IMPLEMENTED
+            node.frequency = wf_object.frequency
+            node.is_last = True
+
+        # print(self.root.children)
 
     def search(self, word: str) -> int:
         """
@@ -56,6 +67,7 @@ class TrieDictionary(BaseDictionary):
         @return: frequency > 0 if found and 0 if NOT found
         """
         # TO BE IMPLEMENTED
+
 
         return 0
 
