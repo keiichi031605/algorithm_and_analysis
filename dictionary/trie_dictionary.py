@@ -23,16 +23,9 @@ class TrieNode:
 class TrieDictionary(BaseDictionary):
 
     def __init__(self):
-        # TO BE IMPLEMENTED
-        # az_lower = string.ascii_lowercase
-        # li = []
-        # for i in az_lower:
-        #     li.append(i)
-        # li.append(None)
-        # print(li)
         self.root = TrieNode()
-        self.root.children["c"] = TrieNode("c", None, False)
-        # self.root.children["b"] = TrieNode("b", None, False)
+        # self.root.children["c"] = TrieNode("c", None, False)
+        # self.root.children["a"] = TrieNode("b", None, False)
 
     def build_dictionary(self, words_frequencies: [WordFrequency]):
         """
@@ -57,7 +50,6 @@ class TrieDictionary(BaseDictionary):
 
             node.frequency = wf_object.frequency
             node.is_last = True
-
         # print(self.root.children)
 
     def search(self, word: str) -> int:
@@ -66,11 +58,23 @@ class TrieDictionary(BaseDictionary):
         @param word: the word to be searched
         @return: frequency > 0 if found and 0 if NOT found
         """
-        # TO BE IMPLEMENTED
+        node = self.root
+        if not node.children:
+            return 0
 
+        for char in word:
+            char_not_found = True
+            # Search through all the children of the present `node`
+            for child in node.children:
+                if char == child:
+                    char_not_found = False
+                    node = node.children[char] #set its value TrieNode to node
+                    break
+            # Return False anyway when we did not find a char.
+            if char_not_found:
+                return 0
 
-        return 0
-
+        return node.frequency
 
     def add_word_frequency(self, word_frequency: WordFrequency) -> bool:
         """
