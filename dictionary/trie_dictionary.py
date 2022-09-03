@@ -113,9 +113,38 @@ class TrieDictionary(BaseDictionary):
         @param word: word to be deleted
         @return: whether succeeded, e.g. return False when point not found
         """
+        is_deleted = False
+        deletable_indices = []
+        # validate if word exists and it's deletable
+        node = self.root
+        for idx, char in enumerate(word):
+            deletable = False
+            for child in node.children:
+                if char == child:
+                    node = node.children[char] # set its value TrieNode to node
+                    if len(node.children) == 1:
+                        deletable_indices.append(idx)
+                    if node.is_last and len(node.children) == 0:
+                        deletable_indices.append(idx)
+                        deletable = True
+                    break
 
-        return False
-
+        if deletable:
+            is_deleted = True
+            deletable_indices.sort(reverse=True)
+            word_idx = -1
+            for deletable_idx in deletable_indices:
+                node = self.root
+                for char in word[:deletable_idx]:
+                    for child in node.children:
+                        if char == child:
+                            node = node.children[char] #set its value TrieNode
+                            break
+                del node.children[word[word_idx]]
+                word_idx = word_idx - 1
+            
+        # print(self.root.children["a"].children["p"].children["p"].children)
+        return is_deleted
 
     def autocomplete(self, word: str) -> [WordFrequency]:
         """
@@ -123,4 +152,6 @@ class TrieDictionary(BaseDictionary):
         @param word: word to be autocompleted
         @return: a list (could be empty) of (at most) 3 most-frequent words with prefix 'word'
         """
+
+        
         return []
