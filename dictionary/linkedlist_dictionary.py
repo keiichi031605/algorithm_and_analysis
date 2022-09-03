@@ -50,7 +50,6 @@ class LinkedListDictionary(BaseDictionary):
         """
         current = self.head
         for i in range(self.length):
-            # print(current)
             if current.word_frequency.word == word:
                 return current.word_frequency.frequency
 
@@ -130,18 +129,11 @@ class LinkedListDictionary(BaseDictionary):
         for i in range(self.length):
             if word[0] == current.word_frequency.word[0] and word in current.word_frequency.word:
                 frequent_words.append(current.word_frequency)
-                # print(current.word_frequency.word, current.word_frequency.frequency)
             current = current.next
         frequent_words.sort(key=lambda x: x.frequency, reverse=True)
 
-        three_most_frequent_words = []
-        if len(frequent_words) > 0:
-            three_most_frequent_words.append(frequent_words[0])
-            if len(frequent_words) > 1:
-                three_most_frequent_words.append(frequent_words[1])
-                if len(frequent_words) > 2:
-                    three_most_frequent_words.append(frequent_words[2])
-        return three_most_frequent_words
+        most_frequent_words = []
+        for frequent_word in frequent_words[:3]:
+            most_frequent_words.append(frequent_word)
 
-
-
+        return most_frequent_words
