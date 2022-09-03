@@ -41,9 +41,6 @@ class LinkedListDictionary(BaseDictionary):
                 # 3. move the head to point to new ListNode
                 self.head = new_node
             self.length += 1
-        # print(self.head.word_frequency.word)
-        # print(self.head.next.word_frequency.word)
-        # print(self.head.next.next.word_frequency.word)
 
     def search(self, word: str) -> int:
         """

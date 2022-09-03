@@ -53,8 +53,6 @@ class ArrayDictionary(BaseDictionary):
         if word_validation:
             self.array_dictionary.append((word_frequency))
             self.array_dictionary.sort(key=lambda x: x.word)
-        # for x in self.array_dictionary:
-        #     print(x.word)
 
         return word_validation
 
@@ -91,13 +89,8 @@ class ArrayDictionary(BaseDictionary):
                 frequent_words.append(wf_object)
         frequent_words.sort(key=lambda x: x.frequency, reverse=True)
 
-        # REFACTORING: there should be more better way!!
-        three_most_frequent_words = []
-        if len(frequent_words) > 0:
-            three_most_frequent_words.append(frequent_words[0])
-            if len(frequent_words) > 1:
-                three_most_frequent_words.append(frequent_words[1])
-                if len(frequent_words) > 2:
-                    three_most_frequent_words.append(frequent_words[2])
+        most_frequent_words = []
+        for frequent_word in frequent_words[:3]:
+            most_frequent_words.append(frequent_word)
 
-        return three_most_frequent_words
+        return most_frequent_words
