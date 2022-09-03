@@ -19,7 +19,6 @@ class TrieNode:
         self.is_last = is_last          # True if this letter is the end of a word
         self.children: dict[str, TrieNode] = {}     # a hashtable containing children nodes, key = letter, value = child node
 
-
 class TrieDictionary(BaseDictionary):
 
     def __init__(self):
@@ -38,12 +37,10 @@ class TrieDictionary(BaseDictionary):
                 found_in_child = False
                 for child in node.children:
                     if char == child:
-                        # print(node.children[char])
                         node = node.children[char] #set its value TrieNode
                         found_in_child = True
                         break
                 if not found_in_child:
-                    # print(char)
                     new_node = TrieNode(char, None, False)
                     node.children[char] = new_node
                     node = new_node
@@ -152,6 +149,27 @@ class TrieDictionary(BaseDictionary):
         @param word: word to be autocompleted
         @return: a list (could be empty) of (at most) 3 most-frequent words with prefix 'word'
         """
-
+        node = self.root
+        for char in word:
+            if char in node.children:
+                node = node.children[char]
+            else:
+                return []
         
-        return []
+        self.frequent_words = []
+        self.depth_first_search(node, word[:-1])
+
+        self.frequent_words.sort(key=lambda x: x[1], reverse=True)
+        most_frequent_words = []
+        for frequent_word in self.frequent_words[:3]:
+            most_frequent_words.append(WordFrequency(frequent_word[0], frequent_word[1]))
+
+        return most_frequent_words
+
+    def depth_first_search(self, node, pre):
+        if node.is_last:
+            word_tuple = (pre + node.letter, node.frequency)
+            self.frequent_words.append(word_tuple)
+
+        for child in node.children.values():
+            self.depth_first_search(child, pre + node.letter)
