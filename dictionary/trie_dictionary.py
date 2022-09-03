@@ -116,15 +116,22 @@ class TrieDictionary(BaseDictionary):
         node = self.root
         for idx, char in enumerate(word):
             deletable = False
+            found_in_child = False
             for child in node.children:
                 if char == child:
                     node = node.children[char] # set its value TrieNode to node
+                    found_in_child = True
                     if len(node.children) == 1:
                         deletable_indices.append(idx)
                     if node.is_last and len(node.children) == 0:
                         deletable_indices.append(idx)
                         deletable = True
                     break
+
+        if found_in_child and node.is_last and not deletable:
+            node.frequency = None
+            node.is_last = False
+            is_deleted = True
 
         if deletable:
             is_deleted = True
@@ -139,7 +146,6 @@ class TrieDictionary(BaseDictionary):
                             break
                 del node.children[word[word_idx]]
                 word_idx = word_idx - 1
-            
         # print(self.root.children["a"].children["p"].children["p"].children)
         return is_deleted
 
@@ -166,6 +172,7 @@ class TrieDictionary(BaseDictionary):
 
         return most_frequent_words
 
+    # additional my own function to do depth-first-search to get word by prefix
     def depth_first_search(self, node, pre):
         if node.is_last:
             word_tuple = (pre + node.letter, node.frequency)
