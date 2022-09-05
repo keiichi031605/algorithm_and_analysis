@@ -1,7 +1,6 @@
 from dictionary.base_dictionary import BaseDictionary
 from dictionary.word_frequency import WordFrequency
 
-
 class ListNode:
     '''
     Define a node in the linked list
@@ -54,6 +53,7 @@ class LinkedListDictionary(BaseDictionary):
                 return current.word_frequency.frequency
 
             current = current.next
+
         return 0
 
     def add_word_frequency(self, word_frequency: WordFrequency) -> bool:

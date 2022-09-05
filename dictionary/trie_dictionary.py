@@ -72,7 +72,6 @@ class TrieDictionary(BaseDictionary):
             # return 0 anyway when not found a char.
             if char_not_found:
                 return 0
-
         return node.frequency
 
     def add_word_frequency(self, word_frequency: WordFrequency) -> bool:
@@ -87,7 +86,6 @@ class TrieDictionary(BaseDictionary):
             found_in_child = False
             for child in node.children:
                 if char == child:
-                    # print(node.children[char])
                     node = node.children[char] #set its value TrieNode
                     found_in_child = True
                     break
@@ -99,9 +97,11 @@ class TrieDictionary(BaseDictionary):
         if word_validation:
             node.frequency = word_frequency.frequency
             node.is_last = True
-        
-        # print(self.root.children["b"].children["o"].children["o"].children["k"])
-        # print(word_validation)
+        if found_in_child and not node.is_last:
+            node.frequency = word_frequency.frequency
+            node.is_last = True
+            word_validation = True
+
         return word_validation
 
     def delete_word(self, word: str) -> bool:
@@ -110,44 +110,47 @@ class TrieDictionary(BaseDictionary):
         @param word: word to be deleted
         @return: whether succeeded, e.g. return False when point not found
         """
-        is_deleted = False
-        deletable_indices = []
-        # validate if word exists and it's deletable
         node = self.root
-        for idx, char in enumerate(word):
-            deletable = False
+        for char in word:
             found_in_child = False
             for child in node.children:
                 if char == child:
-                    node = node.children[char] # set its value TrieNode to node
+                    node = node.children[char] #set its value TrieNode
                     found_in_child = True
-                    if len(node.children) == 1:
-                        deletable_indices.append(idx)
-                    if node.is_last and len(node.children) == 0:
-                        deletable_indices.append(idx)
-                        deletable = True
                     break
+            if not found_in_child:
+                return False
 
-        if found_in_child and node.is_last and not deletable:
-            node.frequency = None
+        if len(node.children) > 0:
             node.is_last = False
-            is_deleted = True
+            node.frequency = None
+        else:
+            self._delete(word, 0, self.root)
+        # print(self.root.children["c"].children["u"].children["t"].children)
+        return True
 
-        if deletable:
-            is_deleted = True
-            deletable_indices.sort(reverse=True)
-            word_idx = -1
-            for deletable_idx in deletable_indices:
-                node = self.root
-                for char in word[:deletable_idx]:
-                    for child in node.children:
-                        if char == child:
-                            node = node.children[char] #set its value TrieNode
-                            break
-                del node.children[word[word_idx]]
-                word_idx = word_idx - 1
-        # print(self.root.children["a"].children["p"].children["p"].children)
-        return is_deleted
+    def _delete(self, word, i, current):
+        deletable = False
+        if i == len(word):
+            if not current.is_last:
+                return False
+            return len(current.children) == 0
+        char = word[i]
+        if char not in current.children:
+            return False
+        next_node = current.children[char]
+        should_delete_ref = self._delete(word, i+1, next_node)
+        if should_delete_ref:
+            # print(current.children[char].letter, 'delete')
+            del current.children[char]
+            deletable = True
+
+        if current.is_last:
+            return False
+        if len(current.children) > 0:
+            return False
+
+        return deletable
 
     def autocomplete(self, word: str) -> [WordFrequency]:
         """

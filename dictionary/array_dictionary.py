@@ -2,7 +2,6 @@ from dictionary.word_frequency import WordFrequency
 from dictionary.base_dictionary import BaseDictionary
 import bisect
 
-
 # ------------------------------------------------------------------------
 # This class is required TO BE IMPLEMENTED
 # Array-based dictionary implementation
@@ -31,12 +30,11 @@ class ArrayDictionary(BaseDictionary):
         @return: frequency > 0 if found and 0 if NOT found
         """
         # 1. loop through array_dictionary to search
-        frequency = 0
         for wf_object in self.array_dictionary:
             if word == wf_object.word:
-                frequency = wf_object.frequency
+                return wf_object.frequency
 
-        return frequency
+        return 0
 
     def add_word_frequency(self, word_frequency: WordFrequency) -> bool:
         """
