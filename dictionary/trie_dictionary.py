@@ -23,8 +23,6 @@ class TrieDictionary(BaseDictionary):
 
     def __init__(self):
         self.root = TrieNode()
-        # self.root.children["c"] = TrieNode("c", None, False)
-        # self.root.children["u"] = TrieNode("b", None, False)
 
     def build_dictionary(self, words_frequencies: [WordFrequency]):
         """
@@ -47,7 +45,6 @@ class TrieDictionary(BaseDictionary):
 
             node.frequency = wf_object.frequency
             node.is_last = True
-        # print(self.root.children["c"].children)
 
     def search(self, word: str) -> int:
         """
@@ -94,9 +91,11 @@ class TrieDictionary(BaseDictionary):
                 node.children[char] = new_node
                 node = new_node
                 word_validation = True
+        # if the last character is not found
         if word_validation:
             node.frequency = word_frequency.frequency
             node.is_last = True
+        # if last character is found but it's not the last character yet, add its frequency
         if found_in_child and not node.is_last:
             node.frequency = word_frequency.frequency
             node.is_last = True
@@ -110,6 +109,7 @@ class TrieDictionary(BaseDictionary):
         @param word: word to be deleted
         @return: whether succeeded, e.g. return False when point not found
         """
+        # validate if the word is deletable
         node = self.root
         for char in word:
             found_in_child = False
@@ -120,13 +120,13 @@ class TrieDictionary(BaseDictionary):
                     break
             if not found_in_child:
                 return False
-
+        # if last node has children, just update its statuses, otherwise execute recursive _delete algorithm
         if len(node.children) > 0:
             node.is_last = False
             node.frequency = None
         else:
             self._delete(word, 0, self.root)
-        # print(self.root.children["c"].children["u"].children["t"].children)
+
         return True
 
     def _delete(self, word, i, current):
@@ -140,8 +140,8 @@ class TrieDictionary(BaseDictionary):
             return False
         next_node = current.children[char]
         should_delete_ref = self._delete(word, i+1, next_node)
+        # execute deleting child node if self._delete returns true
         if should_delete_ref:
-            # print(current.children[char].letter, 'delete')
             del current.children[char]
             deletable = True
 

@@ -131,7 +131,7 @@ class LinkedListDictionary(BaseDictionary):
                 frequent_words.append(current.word_frequency)
             current = current.next
         frequent_words.sort(key=lambda x: x.frequency, reverse=True)
-
+        # 2. extract most three frequent words
         most_frequent_words = []
         for frequent_word in frequent_words[:3]:
             most_frequent_words.append(frequent_word)
