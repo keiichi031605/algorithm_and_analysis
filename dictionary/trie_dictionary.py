@@ -69,6 +69,9 @@ class TrieDictionary(BaseDictionary):
             # return 0 anyway when not found a char.
             if char_not_found:
                 return 0
+        if not node.is_last:
+            return 0
+
         return node.frequency
 
     def add_word_frequency(self, word_frequency: WordFrequency) -> bool:
